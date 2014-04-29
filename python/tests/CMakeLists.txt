@@ -15,7 +15,9 @@ if(tests AND python)
     target_link_libraries(pysparse_testing libpurify)
 
     # Add fake __init__.py file so tests can import the test packages introduced above
-    file(WRITE ${PYPURIFY_DIRECTORY}/tests/__init__.py "")
+    file(WRITE "${PYPURIFY_DIRECTORY}/tests/__init__.py"
+        "# makes this directory a sub-module"
+    )
 
 
     # Now add tests
@@ -25,5 +27,6 @@ if(tests AND python)
     add_nose_test(test_fftw.py)
     add_nose_test(test_sparsity_ops.py)
     add_nose_test(test_params.py)
+    add_nose_test(test_image_fixtures.py)
     add_nose_test(test_sdmm.py)
 endif()

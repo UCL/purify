@@ -8,8 +8,13 @@ function(add_nose_test SOURCE)
     else()
         message(FATAL_ERROR "Python executable not  set")
     endif()
+    set(expression
+       "import nose"
+       "from sys import exit"
+       "exit(nose.run() != True)"
+    )
     add_test( NAME ${testname}
-        COMMAND ${exec} -c "import nose; nose.run()"
+        COMMAND ${exec} -c "${expression}"
             ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE}
     )
     set_tests_properties(${testname} PROPERTIES LABELS "nose;python")
